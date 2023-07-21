@@ -1,3 +1,4 @@
+import { requestSearchMovies } from 'Api/Api';
 import Loader from 'components/Loader/Loader';
 import MoviesList from 'components/MoviesList/MoviesList';
 import React, { useEffect, useState } from 'react';
@@ -14,23 +15,23 @@ const Movies = () => {
   useEffect(() => {
     if (!queryValue) return;
 
-    const requestSearchMovies = async () => {
+    const SearchMovies = async () => {
       setIsLoading(true);
       try {
         const results = await requestSearchMovies(queryValue);
-        setMovies(results);
+        setMovies(results.results);
       } catch (error) {
         setError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-    requestSearchMovies();
+
+    SearchMovies();
   }, [queryValue]);
 
   const onSubmit = e => {
     e.preventDefault();
-
     const searchValue = e.target.children.search.value;
     setSearchParams({ query: searchValue });
   };
@@ -50,7 +51,13 @@ const Movies = () => {
       )}
       {error && <div>Error: {error}</div>}
       {movies.length > 0 && <MoviesList dataList={movies} />}
+      {movies.length === 0 && (
+        <div>
+          <p>No movies found</p>
+        </div>
+      )}
     </div>
   );
 };
+
 export default Movies;
