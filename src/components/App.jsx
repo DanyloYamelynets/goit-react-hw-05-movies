@@ -1,7 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import Loader from './Loader/Loader';
-
+import { BtnStyled, Container } from './AppStyled';
+// import { Layout } from './Layout/Layout';
 const Home = lazy(() => import('pages/Home/Home'));
 const MovieDetails = lazy(() => import('pages/MovieDetails/MovieDetails'));
 const Movies = lazy(() => import('pages/Movies/Movies'));
@@ -11,14 +12,19 @@ const Cast = lazy(() => import('components/Cast/Cast'));
 export const App = () => {
   return (
     <div>
-      <nav>
-        <Link to="/">Home </Link>
-        <Link to="/movies">Movies </Link>
-      </nav>
+      <Container>
+        <Link to="/">
+          <BtnStyled>Home</BtnStyled>
+        </Link>
+        <Link to="/movies">
+          <BtnStyled>Movies</BtnStyled>
+        </Link>
+      </Container>
       <main>
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} /> (// Layout)
+            {/* <Route index element={<Home />} /> */}
             <Route path="/movies" element={<Movies />} />
             <Route path="/movies/:id" element={<MovieDetails />} />
             <Route path="/movies/:id/cast" element={<Cast />} />

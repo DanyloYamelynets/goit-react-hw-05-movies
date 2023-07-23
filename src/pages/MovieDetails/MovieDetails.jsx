@@ -3,6 +3,7 @@ import Loader from 'components/Loader/Loader';
 import MovieItem from 'components/MovieItem/MovieItem';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { AddInfo, BtnCont, BtnStyled, Container } from './MovieDetailsStyled';
 
 const MovieDetails = () => {
   const [movieInfo, setMovieInfo] = useState(null);
@@ -27,7 +28,7 @@ const MovieDetails = () => {
   }, [id]);
 
   return (
-    <div>
+    <Container>
       {movieInfo && <MovieItem {...movieInfo} />}
       {isLoading && (
         <div>
@@ -36,17 +37,18 @@ const MovieDetails = () => {
       )}
       {error && <div>Error: {error}</div>}
       <div>
-        <h2>Additional information</h2>
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
+        <AddInfo>Additional information</AddInfo>
+        <BtnCont>
+          <Link to="cast">
+            <BtnStyled>Cast</BtnStyled>
+          </Link>
+
+          <Link to="reviews">
+            <BtnStyled>Reviews</BtnStyled>
+          </Link>
+        </BtnCont>
       </div>
-    </div>
+    </Container>
   );
 };
 

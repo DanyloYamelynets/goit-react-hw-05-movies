@@ -1,26 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { LinkStyled, List, MovieItem, MovieTitle } from './MoviesListStyled';
 
 function MoviesList({ dataList }) {
-    const location = useLocation();
+  const location = useLocation();
 
   return (
-    <div>
-      {dataList.map(({ id, title, release_date }) => (
-        <Link
-          key={id}
-          to={location.pathname === '/movies' ? `${id}` : `movies/${id}`}
-          state={{ from: location }}
-        >
-          <div>
-            <h3>
-              {title}, {new Date(release_date).getFullYear()}
-            </h3>
-          </div>
-        </Link>
+    <List>
+      {dataList.map(({ id, title, poster_path }) => (
+        <MovieItem key={id}>
+          <LinkStyled
+            key={id}
+            to={location.pathname === '/movies' ? `${id}` : `movies/${id}`}
+            state={{ from: location }}
+          >
+            {
+              <img
+                src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+                alt={title}
+                width="250"
+              />
+            }
+
+            <MovieTitle>
+              {title.length > 17 ? `${title.substring(0, 21)}...` : title}
+            </MovieTitle>
+          </LinkStyled>
+        </MovieItem>
       ))}
-    </div>
+    </List>
   );
 }
 

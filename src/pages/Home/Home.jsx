@@ -1,7 +1,14 @@
 import { requestTrendingMovies } from 'Api/Api';
 import Loader from 'components/Loader/Loader';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {
+  Container,
+  Title,
+  MovieItem,
+  List,
+  LinkStyled,
+  MovieTitle,
+} from './HomeStyled';
 
 export default function Home() {
   const [trendMovies, setTrendMovies] = useState([]);
@@ -25,21 +32,34 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <h1>Trending today</h1>
+    <Container>
+      <Title>Trending today</Title>
       {isLoading && (
         <div>
           <Loader />
         </div>
       )}
       {error && <div>Error: {error}</div>}
-      <ul>
+      <List>
         {trendMovies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`movies/${movie.id}`}>{movie.title}</Link>
-          </li>
+          <MovieItem key={movie.id}>
+            <LinkStyled to={`movies/${movie.id}`}>
+              {
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                  alt={movie.title}
+                  width="250"
+                />
+              }
+              <MovieTitle>
+                {movie.title.length > 17
+                  ? `${movie.title.substring(0, 25)}...`
+                  : movie.title}
+              </MovieTitle>
+            </LinkStyled>
+          </MovieItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Container>
   );
 }

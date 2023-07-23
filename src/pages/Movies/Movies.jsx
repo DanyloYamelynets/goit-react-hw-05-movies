@@ -3,6 +3,13 @@ import Loader from 'components/Loader/Loader';
 import MoviesList from 'components/MoviesList/MoviesList';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import {
+  BtnStyled,
+  Container,
+  FormStyled,
+  InputStyled,
+  NoMovies,
+} from './MoviesStyled';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,12 +44,12 @@ const Movies = () => {
   };
 
   return (
-    <div>
+    <Container>
       <div>
-        <form onSubmit={onSubmit}>
-          <input type="text" name="search" required />
-          <button type="submit">Search</button>
-        </form>
+        <FormStyled onSubmit={onSubmit}>
+          <InputStyled type="text" name="search" required />
+          <BtnStyled type="submit">Search</BtnStyled>
+        </FormStyled>
       </div>
       {isLoading && (
         <div>
@@ -53,10 +60,10 @@ const Movies = () => {
       {movies.length > 0 && <MoviesList dataList={movies} />}
       {movies.length === 0 && (
         <div>
-          <p>No movies found</p>
+          <NoMovies>No movies found</NoMovies>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -2,6 +2,7 @@ import { requestMovieCredits } from 'Api/Api';
 import Loader from 'components/Loader/Loader';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { CastItem, CastList } from './CastStyled';
 
 const Cast = () => {
   const [movieCast, setMovieCast] = useState(null);
@@ -27,9 +28,9 @@ const Cast = () => {
 
   return (
     movieCast && (
-      <ul>
+      <CastList>
         {movieCast.cast.map(({ character, id, name, profile_path }) => (
-          <li key={id}>
+          <CastItem key={id}>
             <img
               src={
                 profile_path
@@ -37,14 +38,14 @@ const Cast = () => {
                   : 'https://st2.depositphotos.com/1898481/6448/i/600/depositphotos_64486573-stock-photo-people.jpg'
               }
               alt={name}
-              width="70"
-              height="100"
+              width="150"
+              height="230"
             />
             <div>
               <p>{name}</p>
               <p>Character: {character}</p>
             </div>
-          </li>
+          </CastItem>
         ))}
         {isLoading && (
           <div>
@@ -52,7 +53,7 @@ const Cast = () => {
           </div>
         )}
         {error && <div>Error: {error}</div>}
-      </ul>
+      </CastList>
     )
   );
 };

@@ -2,6 +2,12 @@ import { requestMovieReviews } from 'Api/Api';
 import Loader from 'components/Loader/Loader';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  Container,
+  NoReviews,
+  ReviewContent,
+  ReviewList,
+} from './ReviewStyled';
 
 const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState(null);
@@ -26,18 +32,18 @@ const Reviews = () => {
   }, [id]);
 
   return (
-    <>
+    <Container>
       {movieReviews && movieReviews.results.length > 0 ? (
-        <ul>
+        <ReviewList>
           {movieReviews.results.map(({ author, id, content }) => (
             <li key={id}>
-              <h3>Author: {author}</h3>
-              <p>{content}</p>
+              <h3>{author}</h3>
+              <ReviewContent>{content}</ReviewContent>
             </li>
           ))}
-        </ul>
+        </ReviewList>
       ) : (
-        <p>We don't have any reviews for this movie yet.</p>
+        <NoReviews>We don't have any reviews for this movie yet.</NoReviews>
       )}
       {isLoading && (
         <div>
@@ -45,7 +51,7 @@ const Reviews = () => {
         </div>
       )}
       {error && <div>Error: {error}</div>}
-    </>
+    </Container>
   );
 };
 export default Reviews;

@@ -11,6 +11,7 @@ const Loader = () => {
       ariaLabel="three-dots-loading"
       wrapperStyle={{
         position: 'absolute',
+        top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         display: 'flex',
