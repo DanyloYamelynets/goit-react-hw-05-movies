@@ -2,7 +2,7 @@ import { requestMovieDetails } from 'Api/Api';
 import Loader from 'components/Loader/Loader';
 import MovieItem from 'components/MovieItem/MovieItem';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { AddInfo, BtnCont, BtnStyled, Container } from './MovieDetailsStyled';
 
 const MovieDetails = () => {
@@ -47,6 +47,7 @@ const MovieDetails = () => {
             <BtnStyled>Reviews</BtnStyled>
           </Link>
         </BtnCont>
+        <Outlet />
       </div>
     </Container>
   );
